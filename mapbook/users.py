@@ -1,7 +1,7 @@
 users: list = [
-    {'Name': 'Szymon z wąsem', 'posts': 1, 'city': 'Poznań'},
+    {'Name': 'Szymon z wąsem', 'posts': 1, 'city': 'Inowrocław'},
     {'Name': 'Dominik', 'posts': 3, 'city': 'Warszawa'},
-    {'Name': 'Patrycja', 'posts': 6, 'city': 'Inowrocław'},
+    {'Name': 'Patrycja', 'posts': 6, 'city': 'Poznań'},
     {'Name': 'Szymon', 'posts': 7, 'city': 'Białogard'},
     {'Name': 'Patryk', 'posts': 2, 'city': 'Łódź'},
     {'Name': 'Żerom', 'posts': 9, 'city': 'Tarnobrzeg'},
@@ -10,8 +10,8 @@ users: list = [
     {'Name': 'Kinga', 'posts': 3, 'city': 'Gdynia'},
     {'Name': 'Amelia', 'posts': 11, 'city': 'Toruń'},
     {'Name': 'Karolina', 'posts': 13, 'city': 'Mława'},
-    {'Name': 'Julia', 'posts': 14, 'city': 'Gdynia'},
-    {'Name': 'Aleksandra', 'posts': 15, 'city': 'Gdańsk'},
-    {'Name': 'Patrycja z okularami', 'posts': 16, 'city': 'Sopot'},
-    {'Name': 'Patrycja czerubin', 'posts': 17, 'city': 'Białystok'},
+    {'Name': 'Julia', 'posts': 14, 'city': 'Zamość'},
+    {'Name': 'Aleksandra', 'posts': 15, 'city': 'Radom'},
+    {'Name': 'Patrycja z okularami', 'posts': 16, 'city': 'Kraśnik'},
+    {'Name': 'Patrycja czerubin', 'posts': 17, 'city': 'Mińsk'},
 ]
