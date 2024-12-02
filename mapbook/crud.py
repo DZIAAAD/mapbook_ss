@@ -19,3 +19,14 @@ def remove_user(users) -> None:
          if user['Name'] == user_to_find:
             print(f'usuwam: {user}')
             users.remove(user)
+
+def update_user(users:list)->None:
+    user_to_find:str=input('Podaj imię użytkownika do aktualizacji:')
+    for user in users:
+        if user['Name'] == user_to_find:
+            new_name: str = input('Proszę podać nowe imię znajomego: ')
+            new_posts: int = int(input('Proszę nową liczbę postów: '))
+            new_city: str = input('Proszę podaj nowe miasto: ')
+            user['Name'] = new_name
+            user['posts'] = new_posts
+            user['city'] = new_city
