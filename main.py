@@ -1,35 +1,110 @@
-from mapbook.map_functions import multiple_user_map
-from mapbook.users import users
-from mapbook.crud import hello, read_users, add_user, remove_user, update_user
-from mapbook.map_functions import *
+# from mapbook.map_functions import multiple_user_map
+# from mapbook.users import users
+# from mapbook.crud import hello, read_users, add_user, remove_user, update_user
+# from mapbook.map_functions import *
+from tkinter import *
+import tkintermapview
 
-def main():
-     hello(users[0]['Name'])
-     while True:
-          print('=======MENU======')
-          print('0. Wyjście z programu')
-          print('1. Dodaj znajomego')
-          print('2. Wczytaj znajomych')
-          print('3. Aktualizuj znajowmego')
-          print('4. Usuń znajowmego')
-          print('5. Generuj mapę z lokalizacją znajomego')
-          print('6. Generuj mapę z lokalizacją wszystkich znajomych')
 
-          menu_option: str = input('Użytkowniku wybież opcje menu: ')
-          print(f'Użytkownik wybrał {menu_option}')
-          if menu_option == '0':
-               break
-          if menu_option == '1':
-               add_user(users)
-          if menu_option == '2':
-               read_users(users)
-          if menu_option == '3':
-               update_user(users)
-          if menu_option == '4':
-               remove_user(users)
-          if menu_option == '5':
-               single_user_map(users)
-          if menu_option == '6':
-               multiple_user_map(users)
-if __name__ == '__main__':
-     main()
+
+
+
+class User:
+     def __init__(self,imie,nazwisko,postow,lokalizacja):
+          self.imie = imie
+          self.nazwisko = nazwisko
+          self.postow = postow
+          self.lokalizacja = lokalizacja
+
+users=[
+     User('aaa','aaa','1','aaa'),
+     User('bbb','bbb','2','bbb'),
+     User('ccc','ccc','3','ccc'),
+]
+def show_users():
+     for idx, user in enumerate(users):
+          listbox_lista_obietktow.insert(idx,user.imie)
+
+
+
+root=Tk()
+root.geometry("1000x800")
+root.title("mapbook")
+
+
+# ramki
+ramka_lista_obiektow = Frame(root)
+ramka_formularz = Frame(root)
+ramka_szczegoly_obiektu = Frame(root)
+
+ramka_lista_obiektow.grid(row=0, column=0,padx=50)
+ramka_formularz.grid(row=0, column=1)
+ramka_szczegoly_obiektu.grid(row=1, column=0,padx=50,pady=20,columnspan=2)
+
+ramka_mapa=Frame(root)
+ramka_mapa.grid(row=2, column=0, padx=50,pady=20)
+
+# ramka lista obiektów
+label_lista_obiektow = Label(ramka_lista_obiektow, text='Lista obiektów: ')
+label_lista_obiektow.grid(row=0, column=0,columnspan=3)
+listbox_lista_obietktow = Listbox(ramka_lista_obiektow, width=50)
+listbox_lista_obietktow.grid(row=1, column=0, columnspan=3)
+button_pokaz_szczegoly=Button(ramka_lista_obiektow, text='Pokaz Szczegoly',command=lambda:print('AAA'))
+button_pokaz_szczegoly.grid(row=2, column=0)
+button_usun_obiekt=Button(ramka_lista_obiektow, text='Usun obiekt')
+button_usun_obiekt.grid(row=2, column=1)
+button_edytuj_obiekt=Button(ramka_lista_obiektow, text='Edytuj obiekt')
+button_edytuj_obiekt.grid(row=2, column=2)
+
+# obiekty wewnątrz formularza
+label_formularz = Label(ramka_formularz, text='Formularz: ')
+label_formularz.grid(row=0, column=0,columnspan=3)
+label_imie = Label(ramka_formularz,text='Imie: ')
+label_imie.grid(row=1, column=0,sticky=W)
+entry_imie = Entry(ramka_formularz)
+entry_imie.grid(row=1, column=1)
+label_nazwisko = Label(ramka_formularz, text='Nazwisko: ')
+label_nazwisko.grid(row=2, column=0,sticky=W)
+entry_nazwisko = Entry(ramka_formularz)
+entry_nazwisko.grid(row=2, column=1)
+label_liczba_postow = Label(ramka_formularz, text='Liczba postow: ')
+label_liczba_postow.grid(row=3, column=0,sticky=W)
+entry_liczba_postow = Entry(ramka_formularz)
+entry_liczba_postow.grid(row=3, column=1)
+label_lokalizacja = Label(ramka_formularz, text='Lokalizacja: ')
+label_lokalizacja.grid(row=4, column=0,sticky=W)
+entry_lokalizacja = Entry(ramka_formularz)
+entry_lokalizacja.grid(row=4, column=1)
+
+button_dodaj_obiekt = Button(ramka_formularz, text='Dodaj obiekt')
+button_dodaj_obiekt.grid(row=5, column=1,columnspan=2)
+
+
+# ramka szczegóły
+label_szczegoly_obiektu = Label(ramka_szczegoly_obiektu, text='Szczegoly obiektu: ')
+label_szczegoly_obiektu.grid(row=0, column=0, sticky=W)
+label_szczegoly_imie = Label(ramka_szczegoly_obiektu, text='Imie: ')
+label_szczegoly_imie.grid(row=1, column=0,sticky=W)
+label_szczegoly_imie_wartosc = Label(ramka_szczegoly_obiektu, text='...',width=10)
+label_szczegoly_imie_wartosc.grid(row=1, column=1)
+label_szczegoly_nazwisko = Label(ramka_szczegoly_obiektu, text='Nazwisko: ')
+label_szczegoly_nazwisko.grid(row=1, column=2)
+label_szczegoly_nazwisko_wartosc = Label(ramka_szczegoly_obiektu, text='...',width=10)
+label_szczegoly_nazwisko_wartosc.grid(row=1, column=3)
+label_szczegoly_postow = Label(ramka_szczegoly_obiektu, text='Postów: ')
+label_szczegoly_postow.grid(row=1, column=4)
+label_szczegoly_postow_wartosc = Label(ramka_szczegoly_obiektu, text='...',width=10)
+label_szczegoly_postow_wartosc.grid(row=1, column=5)
+label_szczegoly_lokalizacja = Label(ramka_szczegoly_obiektu, text='Miasto: ')
+label_szczegoly_lokalizacja.grid(row=1, column=6)
+label_szczegoly_lokalizacja_wartosc = Label(ramka_szczegoly_obiektu, text='...',width=10)
+label_szczegoly_lokalizacja_wartosc.grid(row=1, column=7)
+
+map_widget = tkintermapview.TkinterMapView(ramka_mapa,width=600,height=400)
+map_widget.set_position(52.0,21.0)
+map_widget.set_zoom(6)
+map_widget.grid(row=3, column=0,columnspan=8)
+
+show_users()
+
+root.mainloop()
