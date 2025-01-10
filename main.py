@@ -3,6 +3,9 @@
 # from mapbook.crud import hello, read_users, add_user, remove_user, update_user
 # from mapbook.map_functions import *
 from tkinter import *
+
+import requests
+from bs4 import BeautifulSoup
 import tkintermapview
 
 
@@ -15,12 +18,27 @@ class User:
           self.nazwisko = nazwisko
           self.postow = postow
           self.lokalizacja = lokalizacja
+          self.coords:list = User.get_coordinates(self)
+          self.marker = map_widget.set_marker(
+               self.coords[0],
+               self.coords[1],
+               text=f'{self.imie} {self.nazwisko}',
+          )
+     def get_coordinates(self)->list:
+          url: str = f'https://pl.wikipedia.org/wiki/{self.lokalizacja}'
+          response = requests.get(url)
+          response_html = BeautifulSoup(response.text, 'html.parser')
+          return [
+               float(response_html.select('.latitude')[1].text.replace(',', '.')),
+               float(response_html.select('.longitude')[1].text.replace(',', '.'))
+          ]
 
-users=[
-     # User('aaa','aaa','1','aaa'),
-     # User('bbb','bbb','2','bbb'),
-     # User('ccc','ccc','3','ccc'),
-]
+
+#users=[
+#      User('Kasia','Kowalska','7','Warszawa'),
+#      User('Adam','Nowak','2','Wrocław'),
+#]
+
 def show_users():
      listbox_lista_obietktow.delete(0, END)
      for idx, user in enumerate(users):
@@ -46,7 +64,7 @@ def add_user()->None:
 
 def delete_user()->None:
      i = listbox_lista_obietktow.index(ACTIVE)
-     print(i)
+     users[i].marker.delete()
      users.pop(i)
      show_users()
 
@@ -68,7 +86,9 @@ def update_user(i)->None:
      users[i].nazwisko=entry_nazwisko.get()
      users[i].postow=entry_liczba_postow.get()
      users[i].lokalizacja=entry_lokalizacja.get()
-     show_users()
+     users[i].coords = User.get_coordinates(users[i])
+     users[i].marker.delete()
+     users[i].marker=map_widget.set_marker(users[i].coords[0],users[i].coords[1])
 
      entry_imie.delete(0, END)
      entry_nazwisko.delete(0, END)
@@ -76,6 +96,7 @@ def update_user(i)->None:
      entry_lokalizacja.delete(0, END)
      entry_imie.focus()
      button_dodaj_obiekt.config(text='Dodaj obiekt',command=add_user)
+     show_users()
 
 def show_user_details()->None:
      i = listbox_lista_obietktow.index(ACTIVE)
@@ -83,6 +104,10 @@ def show_user_details()->None:
      label_szczegoly_nazwisko_wartosc.config(text=users[i].nazwisko)
      label_szczegoly_postow_wartosc.config(text=users[i].postow)
      label_szczegoly_lokalizacja_wartosc.config(text=users[i].lokalizacja)
+     map_widget.set_position(users[i].coords[0],users[i].coords[1])
+     map_widget.set_zoom(12)
+
+
 
 
 
