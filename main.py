@@ -63,7 +63,7 @@ def add_user()->None:
      posts=entry_liczba_postow.get()
      location=entry_lokalizacja.get()
 
-     new_user=User(name,surname,posts,location,coordinates = 11.0,20.1)
+     new_user=User(name,surname,posts,location,coordinates = [11.0,20.1])
 
      users.append(new_user)
      show_users()
